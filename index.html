@@ -11,19 +11,11 @@
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #ffe0ec, #ffc2d1, #ffb3c6);
-      background-size: 400% 400%;
-      animation: gradientShift 6s ease infinite;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     .container {
@@ -34,32 +26,7 @@
       box-shadow: 0 20px 60px rgba(255, 105, 135, 0.25);
       max-width: 500px;
       width: 100%;
-      position: relative;
       border: 2px solid rgba(255, 192, 203, 0.3);
-      animation: float 5s ease-in-out infinite, popIn 0.8s ease-out;
-    }
-
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.9) translateY(30px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
-      background: linear-gradient(135deg, #ffe0ec, #ffc2d1, #ffb3c6);
-      border-radius: 28px;
-      z-index: -1;
-      opacity: 0.7;
     }
 
     .logo-section {
@@ -79,13 +46,7 @@
       font-size: 24px;
       font-weight: 800;
       box-shadow: 0 15px 30px rgba(255, 64, 129, 0.3);
-      animation: logoPulse 3s ease-in-out infinite;
       border: 3px solid rgba(255, 255, 255, 0.5);
-    }
-
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
     }
 
     h1 {
@@ -93,12 +54,6 @@
       color: #ad1457;
       margin-bottom: 8px;
       font-weight: 800;
-      animation: titleGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes titleGlow {
-      0% { text-shadow: 0 0 10px rgba(173, 20, 87, 0.3); }
-      100% { text-shadow: 0 0 20px rgba(173, 20, 87, 0.5); }
     }
 
     h2 {
@@ -130,37 +85,13 @@
       color: white;
       font-weight: 600;
       box-shadow: 0 10px 25px rgba(255, 64, 129, 0.25);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.2);
     }
 
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
-      animation: cardRotate 4s linear infinite;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .product-card:hover::before {
-      opacity: 1;
-    }
-
-    @keyframes cardRotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
     .product-card:hover {
-      transform: translateY(-8px) scale(1.03);
+      transform: translateY(-8px);
       box-shadow: 0 15px 40px rgba(255, 64, 129, 0.35);
     }
 
@@ -176,12 +107,6 @@
     .product-icon {
       font-size: 28px;
       margin-bottom: 8px;
-      animation: iconBounce 2s ease-in-out infinite;
-    }
-
-    @keyframes iconBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
     }
 
     .product-name {
@@ -213,12 +138,6 @@
 
     .product-card.selected .checkmark {
       display: flex;
-      animation: checkPop 0.3s ease-out;
-    }
-
-    @keyframes checkPop {
-      0% { transform: scale(0); }
-      100% { transform: scale(1); }
     }
 
     /* Cart Section */
@@ -233,12 +152,6 @@
 
     .cart-section.show {
       display: block;
-      animation: slideDown 0.5s ease-out;
-    }
-
-    @keyframes slideDown {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
     }
 
     .cart-title {
@@ -311,31 +224,13 @@
       font-size: 14px;
       transition: all 0.3s ease;
       box-shadow: 0 8px 25px rgba(255, 64, 129, 0.3);
-      position: relative;
-      overflow: hidden;
-      min-width: 160px;
       border: none;
       cursor: pointer;
     }
 
-    .cta-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .cta-btn:hover::before {
-      left: 100%;
-    }
-
     .cta-btn:hover {
       background: #f50057;
-      transform: translateY(-3px) scale(1.05);
+      transform: translateY(-3px);
       box-shadow: 0 12px 35px rgba(245, 0, 87, 0.4);
     }
 
@@ -430,7 +325,7 @@
     </div>
     
     <h1>S SQUARE</h1>
-    <h2>Varsha Kukka Collection</h2>
+    <h2>Dileela's Skincare Collection</h2>
     <p class="subtitle">✨ Click products to add to cart ✨</p>
     
     <div class="products-grid">
@@ -448,6 +343,13 @@
         <div class="checkmark">✓</div>
       </div>
       
+      <div class="product-card" data-product="Serum" data-price="699">
+        <div class="product-icon">💎</div>
+        <div class="product-name">Serum</div>
+        <div class="product-price">₹699</div>
+        <div class="checkmark">✓</div>
+      </div>
+      
       <div class="product-card" data-product="Moisturizer" data-price="499">
         <div class="product-icon">🧴</div>
         <div class="product-name">Moisturizer</div>
@@ -459,34 +361,6 @@
         <div class="product-icon">☀️</div>
         <div class="product-name">Sunscreen SPF 50</div>
         <div class="product-price">₹599</div>
-        <div class="checkmark">✓</div>
-      </div>
-      
-      <div class="product-card" data-product="Vitamin C Serum" data-price="799">
-        <div class="product-icon">✨</div>
-        <div class="product-name">Vitamin C Serum</div>
-        <div class="product-price">₹799</div>
-        <div class="checkmark">✓</div>
-      </div>
-      
-      <div class="product-card" data-product="Niacinamide Serum" data-price="699">
-        <div class="product-icon">💎</div>
-        <div class="product-name">Niacinamide Serum</div>
-        <div class="product-price">₹699</div>
-        <div class="checkmark">✓</div>
-      </div>
-      
-      <div class="product-card" data-product="Retinol Serum" data-price="899">
-        <div class="product-icon">🌙</div>
-        <div class="product-name">Retinol Serum</div>
-        <div class="product-price">₹899</div>
-        <div class="checkmark">✓</div>
-      </div>
-      
-      <div class="product-card" data-product="Hyaluronic Acid Serum" data-price="749">
-        <div class="product-icon">💧</div>
-        <div class="product-name">Hyaluronic Acid</div>
-        <div class="product-price">₹749</div>
         <div class="checkmark">✓</div>
       </div>
     </div>
@@ -530,18 +404,15 @@
     let cart = [];
     let cartVisible = false;
 
-    // Product card click handler
     document.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('click', function() {
         const productName = this.dataset.product;
         const productPrice = parseInt(this.dataset.price);
         
         if (this.classList.contains('selected')) {
-          // Remove from cart
           removeFromCart(productName);
           this.classList.remove('selected');
         } else {
-          // Add to cart
           addToCart(productName, productPrice);
           this.classList.add('selected');
         }
@@ -560,13 +431,10 @@
 
     function removeCartItem(name) {
       removeFromCart(name);
-      
-      // Update product card visual state
       const productCard = document.querySelector(`[data-product="${name}"]`);
       if (productCard) {
         productCard.classList.remove('selected');
       }
-      
       updateCartDisplay();
     }
 
@@ -634,21 +502,6 @@
       window.open(whatsappUrl, '_blank');
     }
 
-    // Add sparkle effect on hover
-    document.querySelectorAll('.product-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.animation = 'none';
-        this.style.transform = 'translateY(-8px) scale(1.03)';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('selected')) {
-          this.style.transform = 'translateY(0) scale(1)';
-        }
-      });
-    });
-
-    // Initialize cart display
     updateCartDisplay();
   </script>
 </body>
