@@ -4,11 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>S SQUARE - New Collection</title>
+  <title>S SQUARE - Shop</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #ffe0ec, #ffc2d1);
@@ -18,7 +17,6 @@
       padding: 40px 20px;
       min-height: 100vh;
     }
-
     .container {
       background: white;
       padding: 30px;
@@ -28,78 +26,85 @@
       width: 100%;
       text-align: center;
     }
-
     .container img.logo {
       width: 120px;
       margin-bottom: 20px;
       border-radius: 12px;
     }
-
     h1 {
       font-size: 24px;
       color: #ad1457;
       margin-bottom: 8px;
       font-weight: 800;
     }
-
     h2 {
       font-size: 16px;
       color: #d81b60;
       margin-bottom: 20px;
       font-weight: 600;
     }
-
     .cta-btn {
-      display: inline-block;
       background: #ff4081;
       color: white;
-      text-decoration: none;
       padding: 12px 24px;
       border-radius: 30px;
       font-weight: 600;
       font-size: 14px;
+      border: none;
+      cursor: pointer;
       transition: background 0.3s ease, transform 0.2s;
     }
-
     .cta-btn:hover {
       background: #f50057;
       transform: scale(1.05);
     }
-
-    .footer-text {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #777;
-    }
-
-    .products {
-      margin-top: 30px;
-    }
-
+    .products { margin-top: 30px; }
     .products h3 {
       font-size: 16px;
       color: #6a1b9a;
       font-weight: 700;
       margin-bottom: 15px;
     }
-
     .product-card {
       background: #fce4ec;
       border-radius: 12px;
       padding: 12px;
       margin-bottom: 12px;
       text-align: left;
+      position: relative;
     }
-
     .product-name {
       font-weight: 700;
       color: #ad1457;
       margin-bottom: 4px;
     }
-
     .product-benefit {
       font-size: 13px;
       color: #6a1b9a;
+    }
+    .add-btn {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .basket {
+      margin-top: 20px;
+      background: #f3e5f5;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #4a148c;
+      text-align: left;
+    }
+    .whatsapp-btn {
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -107,37 +112,66 @@
   <div class="container">
     <img class="logo" src="S_SQUARE_logo.png" alt="S SQUARE Logo" />
     <h1>NEW COLLECTION</h1>
-    <h2>Updated & Available Now</h2>
-
-    <a class="cta-btn" href="https://wa.me/8464091846" target="_blank">
-      Order on WhatsApp
-    </a>
-
-    <div class="footer-text">📦 Free Delivery | 💯 Original Products</div>
+    <h2>Select & Order on WhatsApp</h2>
 
     <div class="products">
       <h3>🌿 Our Products</h3>
 
       <div class="product-card">
         <div class="product-name">Face Wash</div>
-        <div class="product-benefit">Gently cleanses and refreshes skin</div>
+        <div class="product-benefit">Gently cleanses skin</div>
+        <button class="add-btn" onclick="addToBasket('Face Wash')">+ Add</button>
       </div>
 
       <div class="product-card">
         <div class="product-name">Toner</div>
-        <div class="product-benefit">Tightens pores and balances pH</div>
+        <div class="product-benefit">Tightens pores</div>
+        <button class="add-btn" onclick="addToBasket('Toner')">+ Add</button>
       </div>
 
       <div class="product-card">
         <div class="product-name">Moisturizer</div>
-        <div class="product-benefit">Hydrates skin for 24 hours</div>
+        <div class="product-benefit">24hr Hydration</div>
+        <button class="add-btn" onclick="addToBasket('Moisturizer')">+ Add</button>
       </div>
 
       <div class="product-card">
         <div class="product-name">Sunscreen SPF 50</div>
-        <div class="product-benefit">Protects against UV rays and pollution</div>
+        <div class="product-benefit">UV Protection</div>
+        <button class="add-btn" onclick="addToBasket('Sunscreen SPF 50')">+ Add</button>
       </div>
     </div>
+
+    <div class="basket" id="basket">
+      🧺 <strong>Basket:</strong> <span id="basket-items">None</span>
+    </div>
+
+    <div class="whatsapp-btn">
+      <button class="cta-btn" onclick="sendToWhatsApp()">Send Order on WhatsApp</button>
+    </div>
   </div>
+
+  <script>
+    const basket = [];
+
+    function addToBasket(item) {
+      if (!basket.includes(item)) {
+        basket.push(item);
+        updateBasketDisplay();
+      }
+    }
+
+    function updateBasketDisplay() {
+      const basketText = basket.length > 0 ? basket.join(', ') : 'None';
+      document.getElementById('basket-items').textContent = basketText;
+    }
+
+    function sendToWhatsApp() {
+      if (basket.length === 0) return alert('Basket is empty!');
+      const message = encodeURIComponent("Hi! I want to order: " + basket.join(', '));
+      const phone = "8464091846";
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    }
+  </script>
 </body>
 </html>
