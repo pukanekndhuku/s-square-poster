@@ -3,77 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>S SQUARE - New Collection</title>
+  <title>S SQUARE - Dileela's Skincare Collection</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #ffe0ec, #ffc2d1, #ffb3c6);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
       padding: 20px;
     }
 
-    .container {
-      text-align: center;
+    /* Header */
+    .header {
       background: rgba(255, 255, 255, 0.95);
-      padding: 40px;
-      border-radius: 25px;
-      box-shadow: 0 20px 60px rgba(255, 105, 135, 0.25);
-      max-width: 500px;
-      width: 100%;
+      box-shadow: 0 10px 25px rgba(255, 105, 135, 0.25);
+      padding: 15px 20px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       border: 2px solid rgba(255, 192, 203, 0.3);
     }
 
-    .logo-section {
-      margin-bottom: 25px;
-    }
-
-    .logo-placeholder {
-      width: 100px;
-      height: 100px;
-      background: linear-gradient(135deg, #ff4081, #f50057);
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+    .logo {
       font-size: 24px;
       font-weight: 800;
-      box-shadow: 0 15px 30px rgba(255, 64, 129, 0.3);
-      border: 3px solid rgba(255, 255, 255, 0.5);
+      color: #ad1457;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    h1 {
+    .logo i {
+      font-size: 28px;
+    }
+
+    .cart-icon {
+      font-size: 24px;
+      color: #ad1457;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #ad1457;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      margin: 20px auto;
+      padding: 0 10px;
+      flex: 1;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
       font-size: 32px;
       color: #ad1457;
-      margin-bottom: 8px;
       font-weight: 800;
+      margin-bottom: 8px;
     }
 
-    h2 {
+    .hero h2 {
       font-size: 20px;
       color: #d81b60;
-      margin-bottom: 25px;
       font-weight: 600;
-    }
-
-    .subtitle {
-      color: #d81b60;
-      font-weight: 600;
-      margin-bottom: 25px;
-      font-size: 16px;
+      margin-bottom: 10px;
     }
 
     /* Product Grid */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 15px;
       margin: 25px 0;
     }
@@ -88,6 +114,8 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       border: 2px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      text-align: center;
     }
 
     .product-card:hover {
@@ -104,9 +132,13 @@
       box-shadow: 0 15px 40px rgba(76, 175, 80, 0.35);
     }
 
-    .product-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
+    .product-image {
+      width: 100%;
+      height: 150px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 10px;
+      border-radius: 10px;
     }
 
     .product-name {
@@ -140,28 +172,87 @@
       display: flex;
     }
 
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 18px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(255, 105, 135, 0.25);
+      border: 2px solid rgba(255, 192, 203, 0.3);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #ad1457;
+      cursor: pointer;
+    }
+
+    .variants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
     /* Cart Section */
     .cart-section {
-      margin: 25px 0;
-      padding: 20px;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 350px;
+      height: 100%;
       background: linear-gradient(135deg, #ad1457, #d81b60);
-      border-radius: 18px;
+      border-radius: 18px 0 0 18px;
       color: white;
-      display: none;
+      padding: 20px;
+      transition: right 0.3s ease;
+      z-index: 1001;
+      box-shadow: -10px 0 25px rgba(173, 20, 87, 0.3);
     }
 
     .cart-section.show {
-      display: block;
+      right: 0;
     }
 
     .cart-title {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-cart {
+      cursor: pointer;
+      font-size: 20px;
+      color: white;
     }
 
     .cart-items {
-      text-align: left;
+      max-height: 60%;
+      overflow-y: auto;
       margin-bottom: 15px;
     }
 
@@ -175,6 +266,15 @@
 
     .cart-item:last-child {
       border-bottom: none;
+    }
+
+    .cart-item-name {
+      font-size: 14px;
+    }
+
+    .cart-item-price {
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .remove-btn {
@@ -196,229 +296,244 @@
     .cart-total {
       font-weight: 700;
       font-size: 16px;
-      text-align: center;
-      margin-top: 10px;
+      text-align: right;
+      margin: 15px 0;
       padding-top: 15px;
       border-top: 2px solid rgba(255, 255, 255, 0.3);
     }
 
-    /* Action Buttons */
-    .action-buttons {
-      display: flex;
-      gap: 15px;
-      margin-top: 25px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .order-btn {
       background: #ff4081;
       color: white;
-      text-decoration: none;
-      padding: 15px 25px;
+      padding: 10px;
+      border: none;
       border-radius: 30px;
-      font-weight: 600;
+      width: 100%;
       font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 8px 25px rgba(255, 64, 129, 0.3);
-      border: none;
-      cursor: pointer;
     }
 
-    .cta-btn:hover {
+    .order-btn:hover {
       background: #f50057;
       transform: translateY(-3px);
       box-shadow: 0 12px 35px rgba(245, 0, 87, 0.4);
     }
 
-    .cart-btn {
-      background: #ad1457;
-      box-shadow: 0 8px 25px rgba(173, 20, 87, 0.3);
-    }
-
-    .cart-btn:hover {
-      background: #880e4f;
-      box-shadow: 0 12px 35px rgba(136, 14, 79, 0.4);
-    }
-
-    .cart-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-icon {
-      margin-right: 8px;
-      font-size: 16px;
-    }
-
-    .cart-count {
-      background: rgba(255, 255, 255, 0.9);
+    /* Footer */
+    .footer {
+      background: rgba(255, 255, 255, 0.95);
       color: #ad1457;
-      padding: 2px 8px;
-      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
       font-size: 12px;
-      font-weight: 700;
-      margin-left: 5px;
-    }
-
-    /* Trust Badges */
-    .trust-badges {
-      margin-top: 25px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .trust-badge {
-      font-size: 12px;
-      color: #666;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 192, 203, 0.3);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(255, 105, 135, 0.25);
+      border: 2px solid rgba(255, 192, 203, 0.3);
+      margin-top: 20px;
     }
 
-    .trust-badge span {
-      font-size: 14px;
+    .footer a {
+      color: #d81b60;
+      text-decoration: none;
+      margin: 0 10px;
     }
 
     /* Responsive Design */
-    @media (max-width: 480px) {
-      .container {
-        padding: 30px 20px;
+    @media (max-width: 768px) {
+      .products-grid,
+      .variants-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       }
-      
-      h1 {
+
+      .modal-content {
+        width: 95%;
+      }
+
+      .cart-section {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
         font-size: 26px;
       }
-      
+
+      .hero h2 {
+        font-size: 16px;
+      }
+
       .products-grid {
         grid-template-columns: 1fr;
-      }
-      
-      .action-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .cta-btn {
-        width: 100%;
-        max-width: 250px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <i class="fas fa-shopping-bag"></i>
+      S SQUARE
+    </div>
+    <div class="cart-icon" onclick="toggleCart()">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
   <div class="container">
-    <div class="logo-section">
-      <div class="logo-placeholder">S²</div>
+    <div class="hero">
+      <h1>S SQUARE</h1>
+      <h2>Dileela's Skincare Collection</h2>
     </div>
-    
-    <h1>S SQUARE</h1>
-    <h2>Dileela's Skincare Collection</h2>
-    <p class="subtitle">✨ Click products to add to cart ✨</p>
-    
+
     <div class="products-grid">
-      <div class="product-card" data-product="Face Wash" data-price="299">
-        <div class="product-icon">🧼</div>
-        <div class="product-name">Face Wash</div>
-        <div class="product-price">₹299</div>
-        <div class="checkmark">✓</div>
-      </div>
-      
-      <div class="product-card" data-product="Toner" data-price="349">
-        <div class="product-icon">💧</div>
-        <div class="product-name">Toner</div>
-        <div class="product-price">₹349</div>
-        <div class="checkmark">✓</div>
-      </div>
-      
-      <div class="product-card" data-product="Serum" data-price="699">
-        <div class="product-icon">💎</div>
+      <div class="product-card toggle" data-product="Serum">
+        <div class="product-image" style="background-image: url('https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/serum.jpg');"></div>
         <div class="product-name">Serum</div>
-        <div class="product-price">₹699</div>
+        <div class="product-price">From ₹649</div>
         <div class="checkmark">✓</div>
       </div>
-      
-      <div class="product-card" data-product="Moisturizer" data-price="499">
-        <div class="product-icon">🧴</div>
+
+      <div class="product-card toggle" data-product="Face Wash">
+        <div class="product-image" style="background-image: url('https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/face-wash.jpg');"></div>
+        <div class="product-name">Face Wash</div>
+        <div class="product-price">From ₹299</div>
+        <div class="checkmark">✓</div>
+      </div>
+
+      <div class="product-card toggle" data-product="Toner">
+        <div class="product-image" style="background-image: url('https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/toner.jpg');"></div>
+        <div class="product-name">Toner</div>
+        <div class="product-price">From ₹349</div>
+        <div class="checkmark">✓</div>
+      </div>
+
+      <div class="product-card toggle" data-product="Moisturizer">
+        <div class="product-image" style="background-image: url('https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/moisturizer.jpg');"></div>
         <div class="product-name">Moisturizer</div>
-        <div class="product-price">₹499</div>
+        <div class="product-price">From ₹499</div>
         <div class="checkmark">✓</div>
       </div>
-      
-      <div class="product-card" data-product="Sunscreen SPF 50" data-price="599">
-        <div class="product-icon">☀️</div>
-        <div class="product-name">Sunscreen SPF 50</div>
-        <div class="product-price">₹599</div>
+
+      <div class="product-card toggle" data-product="Sunscreen">
+        <div class="product-image" style="background-image: url('https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/sunscreen.jpg');"></div>
+        <div class="product-name">Sunscreen</div>
+        <div class="product-price">From ₹549</div>
         <div class="checkmark">✓</div>
-      </div>
-    </div>
-    
-    <div class="cart-section" id="cartSection">
-      <div class="cart-title">🛒 Your Cart</div>
-      <div class="cart-items" id="cartItems"></div>
-      <div class="cart-total" id="cartTotal">Total: ₹0</div>
-    </div>
-    
-    <div class="action-buttons">
-      <button class="cta-btn cart-btn" id="cartBtn" onclick="toggleCart()">
-        <span class="btn-icon">🛒</span>
-        View Cart
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-      
-      <button class="cta-btn" id="orderBtn" onclick="orderOnWhatsApp()">
-        <span class="btn-icon">📱</span>
-        Order on WhatsApp
-      </button>
-    </div>
-    
-    <div class="trust-badges">
-      <div class="trust-badge">
-        <span>🚚</span>
-        Free Delivery
-      </div>
-      <div class="trust-badge">
-        <span>💯</span>
-        Original Products
-      </div>
-      <div class="trust-badge">
-        <span>🔒</span>
-        Secure Payment
       </div>
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">×</span>
+      <div class="variants-grid" id="modalVariants"></div>
+    </div>
+  </div>
+
+  <!-- Cart Section -->
+  <div class="cart-section" id="cartSection">
+    <div class="cart-title">
+      🛒 Your Cart
+      <span class="close-cart" onclick="toggleCart()">×</span>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total" id="cartTotal">Total: ₹0</div>
+    <button class="order-btn" onclick="orderOnWhatsApp()">Order from WhatsApp</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 S SQUARE. All rights reserved. Last updated: 11:57 PM IST, Fri, Jul 04, 2025</p>
+    <p><i class="fas fa-truck"></i> Free Delivery | <i class="fas fa-check-circle"></i> Original Products</p>
+  </footer>
+
   <script>
     let cart = [];
     let cartVisible = false;
+    let modalVisible = false;
 
-    document.querySelectorAll('.product-card').forEach(card => {
+    // Toggle modal for variants
+    document.querySelectorAll('.product-card.toggle').forEach(card => {
       card.addEventListener('click', function() {
-        const productName = this.dataset.product;
-        const productPrice = parseInt(this.dataset.price);
-        
-        if (this.classList.contains('selected')) {
-          removeFromCart(productName);
-          this.classList.remove('selected');
-        } else {
-          addToCart(productName, productPrice);
-          this.classList.add('selected');
-        }
-        
-        updateCartDisplay();
+        const product = this.dataset.product;
+        const variants = {
+          Serum: [
+            { name: "Vitamin C Serum", price: 699, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/serum.jpg" },
+            { name: "Niacinamide Serum", price: 649, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/serum.jpg" }
+          ],
+          "Face Wash": [
+            { name: "Gentle Face Wash", price: 299, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/face-wash.jpg" },
+            { name: "Exfoliating Face Wash", price: 349, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/face-wash.jpg" },
+            { name: "Hydrating Face Wash", price: 329, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/face-wash.jpg" }
+          ],
+          Toner: [
+            { name: "Rose Water Toner", price: 349, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/toner.jpg" },
+            { name: "Green Tea Toner", price: 369, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/toner.jpg" }
+          ],
+          Moisturizer: [
+            { name: "Light Moisturizer", price: 499, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/moisturizer.jpg" },
+            { name: "Rich Moisturizer", price: 529, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/moisturizer.jpg" }
+          ],
+          Sunscreen: [
+            { name: "Sunscreen SPF 30", price: 549, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/sunscreen.jpg" },
+            { name: "Sunscreen SPF 50", price: 599, image: "https://raw.githubusercontent.com/pukanekndhuku/s-square-poster/main/images/sunscreen.jpg" }
+          ]
+        };
+
+        const modal = document.getElementById('modal');
+        const modalVariants = document.getElementById('modalVariants');
+        modalVariants.innerHTML = '';
+
+        variants[product].forEach(variant => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.dataset.product = variant.name;
+          card.dataset.price = variant.price;
+          card.innerHTML = `
+            <div class="product-image" style="background-image: url('${variant.image}');"></div>
+            <div class="product-name">${variant.name}</div>
+            <div class="product-price">₹${variant.price}</div>
+            <div class="checkmark">✓</div>
+          `;
+          card.addEventListener('click', function() {
+            if (this.classList.contains('selected')) {
+              removeFromCart(variant.name);
+              this.classList.remove('selected');
+            } else {
+              addToCart(variant.name, variant.price);
+              this.classList.add('selected');
+            }
+            updateCartDisplay();
+          });
+          modalVariants.appendChild(card);
+        });
+
+        modal.style.display = 'flex';
+        modalVisible = true;
       });
+    });
+
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.style.display = 'none';
+      modalVisible = false;
+    }
+
+    // Window click to close modal
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal && modalVisible) {
+        closeModal();
+      }
     });
 
     function addToCart(name, price) {
@@ -459,9 +574,9 @@
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
-          <span>${item.name}</span>
+          <span class="cart-item-name">${item.name}</span>
           <div>
-            <span>₹${item.price}</span>
+            <span class="cart-item-price">₹${item.price}</span>
             <button class="remove-btn" onclick="removeCartItem('${item.name}')">×</button>
           </div>
         `;
@@ -474,17 +589,11 @@
     function toggleCart() {
       const cartSection = document.getElementById('cartSection');
       cartVisible = !cartVisible;
-      
-      if (cartVisible) {
-        cartSection.classList.add('show');
-      } else {
-        cartSection.classList.remove('show');
-      }
+      cartSection.classList.toggle('show', cartVisible);
     }
 
     function orderOnWhatsApp() {
       if (cart.length === 0) {
-        alert('🛒 Please add some products to your cart first!');
         return;
       }
       
