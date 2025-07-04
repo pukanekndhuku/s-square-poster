@@ -1,177 +1,655 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>S SQUARE - Shop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <title>S SQUARE - New Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffe0ec, #ffc2d1);
+      background: linear-gradient(135deg, #ffe0ec, #ffc2d1, #ffb3c6);
+      background-size: 400% 400%;
+      animation: gradientShift 6s ease infinite;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 40px 20px;
-      min-height: 100vh;
+      align-items: center;
+      padding: 20px;
     }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .container {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(255, 105, 135, 0.3);
-      max-width: 420px;
-      width: 100%;
       text-align: center;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(255, 105, 135, 0.25);
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      border: 2px solid rgba(255, 192, 203, 0.3);
+      animation: float 5s ease-in-out infinite, popIn 0.8s ease-out;
     }
-    .container img.logo {
-      width: 120px;
-      margin-bottom: 20px;
-      border-radius: 12px;
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.9) translateY(30px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-    h1 {
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #ffe0ec, #ffc2d1, #ffb3c6);
+      border-radius: 28px;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    .logo-section {
+      margin-bottom: 25px;
+    }
+
+    .logo-placeholder {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #ff4081, #f50057);
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
       font-size: 24px;
+      font-weight: 800;
+      box-shadow: 0 15px 30px rgba(255, 64, 129, 0.3);
+      animation: logoPulse 3s ease-in-out infinite;
+      border: 3px solid rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    h1 {
+      font-size: 32px;
       color: #ad1457;
       margin-bottom: 8px;
       font-weight: 800;
+      animation: titleGlow 2s ease-in-out infinite alternate;
     }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 10px rgba(173, 20, 87, 0.3); }
+      100% { text-shadow: 0 0 20px rgba(173, 20, 87, 0.5); }
+    }
+
     h2 {
-      font-size: 16px;
+      font-size: 20px;
       color: #d81b60;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       font-weight: 600;
     }
-    .cta-btn {
-      background: #ff4081;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 30px;
+
+    .subtitle {
+      color: #d81b60;
       font-weight: 600;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s;
-    }
-    .cta-btn:hover {
-      background: #f50057;
-      transform: scale(1.05);
-    }
-    .products { margin-top: 30px; }
-    .products h3 {
+      margin-bottom: 25px;
       font-size: 16px;
-      color: #6a1b9a;
+    }
+
+    /* Product Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .product-card {
+      background: linear-gradient(135deg, #ff4081, #f50057);
+      padding: 20px;
+      border-radius: 18px;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(255, 64, 129, 0.25);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: cardRotate 4s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover::before {
+      opacity: 1;
+    }
+
+    @keyframes cardRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 40px rgba(255, 64, 129, 0.35);
+    }
+
+    .product-card.selected {
+      background: linear-gradient(135deg, #4caf50, #66bb6a);
+      box-shadow: 0 10px 25px rgba(76, 175, 80, 0.25);
+    }
+
+    .product-card.selected:hover {
+      box-shadow: 0 15px 40px rgba(76, 175, 80, 0.35);
+    }
+
+    .product-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .product-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #4caf50;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .product-card.selected .checkmark {
+      display: flex;
+      animation: checkPop 0.3s ease-out;
+    }
+
+    @keyframes checkPop {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    /* Cart Section */
+    .cart-section {
+      margin: 25px 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #ad1457, #d81b60);
+      border-radius: 18px;
+      color: white;
+      display: none;
+    }
+
+    .cart-section.show {
+      display: block;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .cart-title {
+      font-size: 18px;
       font-weight: 700;
       margin-bottom: 15px;
     }
-    .product-card {
-      background: #fce4ec;
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 12px;
+
+    .cart-items {
       text-align: left;
-      position: relative;
+      margin-bottom: 15px;
     }
-    .product-name {
-      font-weight: 700;
-      color: #ad1457;
-      margin-bottom: 4px;
+
+    .cart-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .product-benefit {
-      font-size: 13px;
-      color: #6a1b9a;
+
+    .cart-item:last-child {
+      border-bottom: none;
     }
-    .add-btn {
-      position: absolute;
-      right: 10px;
-      top: 12px;
-      background: #ff4081;
-      color: white;
+
+    .remove-btn {
+      background: rgba(255, 255, 255, 0.2);
       border: none;
+      color: white;
       padding: 5px 10px;
       border-radius: 12px;
+      cursor: pointer;
       font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .remove-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .cart-total {
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 10px;
+      padding-top: 15px;
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ff4081;
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 64, 129, 0.3);
+      position: relative;
+      overflow: hidden;
+      min-width: 160px;
+      border: none;
       cursor: pointer;
     }
-    .basket {
-      margin-top: 20px;
-      background: #f3e5f5;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 14px;
-      color: #4a148c;
-      text-align: left;
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
     }
-    .whatsapp-btn {
-      margin-top: 15px;
+
+    .cta-btn:hover::before {
+      left: 100%;
+    }
+
+    .cta-btn:hover {
+      background: #f50057;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(245, 0, 87, 0.4);
+    }
+
+    .cart-btn {
+      background: #ad1457;
+      box-shadow: 0 8px 25px rgba(173, 20, 87, 0.3);
+    }
+
+    .cart-btn:hover {
+      background: #880e4f;
+      box-shadow: 0 12px 35px rgba(136, 14, 79, 0.4);
+    }
+
+    .cart-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    .cart-count {
+      background: rgba(255, 255, 255, 0.9);
+      color: #ad1457;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-left: 5px;
+    }
+
+    /* Trust Badges */
+    .trust-badges {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .trust-badge {
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 192, 203, 0.3);
+    }
+
+    .trust-badge span {
+      font-size: 14px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 26px;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .cta-btn {
+        width: 100%;
+        max-width: 250px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img class="logo" src="S_SQUARE_logo.png" alt="S SQUARE Logo" />
-    <h1>Varsha Kukka</h1>
-    <h2>Select & Order on WhatsApp</h2>
-
-    <div class="products">
-      <h3>🌿 Our Products</h3>
-
-      <div class="product-card">
+    <div class="logo-section">
+      <div class="logo-placeholder">S²</div>
+    </div>
+    
+    <h1>S SQUARE</h1>
+    <h2>Varsha Kukka Collection</h2>
+    <p class="subtitle">✨ Click products to add to cart ✨</p>
+    
+    <div class="products-grid">
+      <div class="product-card" data-product="Face Wash" data-price="299">
+        <div class="product-icon">🧼</div>
         <div class="product-name">Face Wash</div>
-        <div class="product-benefit">Gently cleanses skin</div>
-        <button class="add-btn" onclick="addToBasket('Face Wash')">+ Add</button>
+        <div class="product-price">₹299</div>
+        <div class="checkmark">✓</div>
       </div>
-
-      <div class="product-card">
+      
+      <div class="product-card" data-product="Toner" data-price="349">
+        <div class="product-icon">💧</div>
         <div class="product-name">Toner</div>
-        <div class="product-benefit">Tightens pores</div>
-        <button class="add-btn" onclick="addToBasket('Toner')">+ Add</button>
+        <div class="product-price">₹349</div>
+        <div class="checkmark">✓</div>
       </div>
-
-      <div class="product-card">
+      
+      <div class="product-card" data-product="Moisturizer" data-price="499">
+        <div class="product-icon">🧴</div>
         <div class="product-name">Moisturizer</div>
-        <div class="product-benefit">24hr Hydration</div>
-        <button class="add-btn" onclick="addToBasket('Moisturizer')">+ Add</button>
+        <div class="product-price">₹499</div>
+        <div class="checkmark">✓</div>
       </div>
-
-      <div class="product-card">
+      
+      <div class="product-card" data-product="Sunscreen SPF 50" data-price="599">
+        <div class="product-icon">☀️</div>
         <div class="product-name">Sunscreen SPF 50</div>
-        <div class="product-benefit">UV Protection</div>
-        <button class="add-btn" onclick="addToBasket('Sunscreen SPF 50')">+ Add</button>
+        <div class="product-price">₹599</div>
+        <div class="checkmark">✓</div>
+      </div>
+      
+      <div class="product-card" data-product="Vitamin C Serum" data-price="799">
+        <div class="product-icon">✨</div>
+        <div class="product-name">Vitamin C Serum</div>
+        <div class="product-price">₹799</div>
+        <div class="checkmark">✓</div>
+      </div>
+      
+      <div class="product-card" data-product="Niacinamide Serum" data-price="699">
+        <div class="product-icon">💎</div>
+        <div class="product-name">Niacinamide Serum</div>
+        <div class="product-price">₹699</div>
+        <div class="checkmark">✓</div>
+      </div>
+      
+      <div class="product-card" data-product="Retinol Serum" data-price="899">
+        <div class="product-icon">🌙</div>
+        <div class="product-name">Retinol Serum</div>
+        <div class="product-price">₹899</div>
+        <div class="checkmark">✓</div>
+      </div>
+      
+      <div class="product-card" data-product="Hyaluronic Acid Serum" data-price="749">
+        <div class="product-icon">💧</div>
+        <div class="product-name">Hyaluronic Acid</div>
+        <div class="product-price">₹749</div>
+        <div class="checkmark">✓</div>
       </div>
     </div>
-
-    <div class="basket" id="basket">
-      🧺 <strong>Basket:</strong> <span id="basket-items">None</span>
+    
+    <div class="cart-section" id="cartSection">
+      <div class="cart-title">🛒 Your Cart</div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-total" id="cartTotal">Total: ₹0</div>
     </div>
-
-    <div class="whatsapp-btn">
-      <button class="cta-btn" onclick="sendToWhatsApp()">Send Order on WhatsApp</button>
+    
+    <div class="action-buttons">
+      <button class="cta-btn cart-btn" id="cartBtn" onclick="toggleCart()">
+        <span class="btn-icon">🛒</span>
+        View Cart
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      
+      <button class="cta-btn" id="orderBtn" onclick="orderOnWhatsApp()">
+        <span class="btn-icon">📱</span>
+        Order on WhatsApp
+      </button>
+    </div>
+    
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <span>🚚</span>
+        Free Delivery
+      </div>
+      <div class="trust-badge">
+        <span>💯</span>
+        Original Products
+      </div>
+      <div class="trust-badge">
+        <span>🔒</span>
+        Secure Payment
+      </div>
     </div>
   </div>
 
   <script>
-    const basket = [];
+    let cart = [];
+    let cartVisible = false;
 
-    function addToBasket(item) {
-      if (!basket.includes(item)) {
-        basket.push(item);
-        updateBasketDisplay();
+    // Product card click handler
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const productName = this.dataset.product;
+        const productPrice = parseInt(this.dataset.price);
+        
+        if (this.classList.contains('selected')) {
+          // Remove from cart
+          removeFromCart(productName);
+          this.classList.remove('selected');
+        } else {
+          // Add to cart
+          addToCart(productName, productPrice);
+          this.classList.add('selected');
+        }
+        
+        updateCartDisplay();
+      });
+    });
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter(item => item.name !== name);
+    }
+
+    function removeCartItem(name) {
+      removeFromCart(name);
+      
+      // Update product card visual state
+      const productCard = document.querySelector(`[data-product="${name}"]`);
+      if (productCard) {
+        productCard.classList.remove('selected');
+      }
+      
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartCount = document.getElementById('cartCount');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      
+      cartCount.textContent = cart.length;
+      
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align: center; opacity: 0.7;">Your cart is empty</p>';
+        cartTotal.textContent = 'Total: ₹0';
+        return;
+      }
+      
+      let total = 0;
+      cartItems.innerHTML = '';
+      
+      cart.forEach(item => {
+        total += item.price;
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <span>${item.name}</span>
+          <div>
+            <span>₹${item.price}</span>
+            <button class="remove-btn" onclick="removeCartItem('${item.name}')">×</button>
+          </div>
+        `;
+        cartItems.appendChild(cartItem);
+      });
+      
+      cartTotal.textContent = `Total: ₹${total}`;
+    }
+
+    function toggleCart() {
+      const cartSection = document.getElementById('cartSection');
+      cartVisible = !cartVisible;
+      
+      if (cartVisible) {
+        cartSection.classList.add('show');
+      } else {
+        cartSection.classList.remove('show');
       }
     }
 
-    function updateBasketDisplay() {
-      const basketText = basket.length > 0 ? basket.join(', ') : 'None';
-      document.getElementById('basket-items').textContent = basketText;
+    function orderOnWhatsApp() {
+      if (cart.length === 0) {
+        alert('🛒 Please add some products to your cart first!');
+        return;
+      }
+      
+      let message = "Hi! I want to order:%0A%0A";
+      let total = 0;
+      
+      cart.forEach(item => {
+        message += `• ${item.name} - ₹${item.price}%0A`;
+        total += item.price;
+      });
+      
+      message += `%0ATotal: ₹${total}%0A%0APlease confirm the order and delivery details. Thank you! 😊`;
+      
+      const whatsappUrl = `https://wa.me/8464091846?text=${message}`;
+      window.open(whatsappUrl, '_blank');
     }
 
-    function sendToWhatsApp() {
-      if (basket.length === 0) return alert('Basket is empty!');
-      const message = encodeURIComponent("Hi! I want to order: " + basket.join(', '));
-      const phone = "8464091846";
-      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    }
+    // Add sparkle effect on hover
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.animation = 'none';
+        this.style.transform = 'translateY(-8px) scale(1.03)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        if (!this.classList.contains('selected')) {
+          this.style.transform = 'translateY(0) scale(1)';
+        }
+      });
+    });
+
+    // Initialize cart display
+    updateCartDisplay();
   </script>
 </body>
 </html>
